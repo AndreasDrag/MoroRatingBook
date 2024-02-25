@@ -12,7 +12,7 @@ public class AuthorDtoTransformer {
         return new Author.Builder()
                 .withName(clientAuthorDto.getName())
                 .withBirthYear(clientAuthorDto.getBirthYear())
-                .withDeathYear(clientAuthorDto.getBirthYear())
+                .withDeathYear(clientAuthorDto.getDeathYear())
                 .build();
     }
 }

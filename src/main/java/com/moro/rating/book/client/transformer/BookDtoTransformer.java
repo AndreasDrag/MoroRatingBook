@@ -3,9 +3,7 @@ package com.moro.rating.book.client.transformer;
 
 import com.moro.rating.book.client.model.ClientBookDto;
 import com.moro.rating.book.service.model.Book;
-
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.util.CollectionUtils;
 
 public class BookDtoTransformer {
     public static Book toModel(ClientBookDto clientBookDto) {
@@ -18,8 +16,10 @@ public class BookDtoTransformer {
                 .withDownloadCount(clientBookDto.getDownloadCount())
                 .withLanguages(clientBookDto.getLanguages())
                 .withAuthors(
-                        Optional.ofNullable(clientBookDto.getAuthors())
-                                .stream().flatMap(Collection::stream)
+                        CollectionUtils.isEmpty(clientBookDto.getAuthors())
+                                ? null
+                                : clientBookDto.getAuthors()
+                                .stream()
                                 .map(AuthorDtoTransformer::toModel)
                                 .toList()
                 )
