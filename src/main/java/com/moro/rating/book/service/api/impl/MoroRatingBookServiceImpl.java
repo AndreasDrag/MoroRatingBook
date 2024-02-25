@@ -7,6 +7,8 @@ import com.moro.rating.book.service.api.MoroRatingBookService;
 import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
 import com.moro.rating.book.service.model.BookReview;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collection;
@@ -15,6 +17,9 @@ import java.util.Optional;
 
 @Configuration
 public class MoroRatingBookServiceImpl implements MoroRatingBookService {
+
+    private final String SEARCH_BOOK_CACHE_NAME = "searchBook";
+    private final String GER_BOOK_CACHE_NAME = "getBook";
 
     private final BookClientService bookClientService;
 
@@ -25,15 +30,19 @@ public class MoroRatingBookServiceImpl implements MoroRatingBookService {
         this.bookReviewRepositoryService = bookReviewRepositoryService;
     }
 
+    @Cacheable(cacheNames = SEARCH_BOOK_CACHE_NAME, key = "#title")
+    @Override
     public List<Book> searchBook(String title) {
         return bookClientService.searchBooks(title);
     }
 
+    @CacheEvict(value=GER_BOOK_CACHE_NAME, key="#bookReview.bookId")
     @Override
     public void reviewBook(BookReview bookReview) {
         bookReviewRepositoryService.save(BookReviewEntityTransformer.toEntity(bookReview));
     }
 
+    @Cacheable(cacheNames = GER_BOOK_CACHE_NAME, key = "#bookId")
     @Override
     public BookDetails getBook(Integer bookId) {
         Book book = bookClientService.getBook(bookId);
