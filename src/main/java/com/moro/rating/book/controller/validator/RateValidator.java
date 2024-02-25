@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class RateValidator implements ConstraintValidator<Rate, Integer> {
 
-    private static final Pattern RATE_NUMBER_RANGE_PATTERN = Pattern.compile("[0 - 5]");
+    private static final Pattern RATE_NUMBER_RANGE_PATTERN = Pattern.compile("[0-5]");
 
     public RateValidator() {
     }
