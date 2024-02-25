@@ -1,0 +1,48 @@
+server:
+  port: ${APP_PORT:9000}
+  servlet:
+    context-path: /moro/rating
+
+spring:
+  application:
+    name: moro-rating-book-app
+
+  sql:
+    init:
+      platform: postgres
+
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+      url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/moro_rating_book_db}
+      username: ${DATABASE_USER:postgres}
+      password: ${DATABASE_PASS:postgres}
+
+  liquibase:
+    enabled: ${ENABLE_LIQUIBASE:true}
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+application:
+  book-client:
+    url: https://gutendex.com/books
+
+logging:
+  level:
+    root: INFO
+    com.intrasoft.dxb: TRACE
+    #    io.lettuce.core: TRACE
+    redis.clients: INFO
+    org.springframework.kafka.requestreply: INFO
+    org.apache.kafka: INFO
+    org.springframework: INFO
+  pattern:
+    level: '%5p %mdc'

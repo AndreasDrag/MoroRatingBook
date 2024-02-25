@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+
+  dxb-postgres-dbs:
+    image: "postgres:14.0"
+    hostname: moro-postgres-dbs
+    container_name: moro-postgres-dbs
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=moro_rating_book_db
+    volumes:
+      - ./postgres/pg-init-scripts:/docker-entrypoint-initdb.d
+      - ./postgres/data:/var/lib/postgresql/data
+
+volumes:
+  moro-postgres-data:

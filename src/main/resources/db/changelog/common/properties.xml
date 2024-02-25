@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- Database type definition -->
+    <property name="database" value="mssql" dbms="mssql"/>
+    <property name="database" value="postgres" dbms="postgresql"/>
+
+    <!-- Clob Data type definition -->
+    <property name="clob.type" value="clob" dbms="oracle,db2,db2i,h2"/>
+    <property name="clob.type" value="text" dbms="postgresql"/>
+    <property name="clob.type" value="[NVARCHAR](max)" dbms="mssql"/>
+
+    <!-- Blob Data type definition -->
+    <property name="blob.type" value="blob" dbms="oracle,db2,db2i,h2"/>
+    <property name="blob.type" value="bytea" dbms="postgresql"/>
+    <property name="blob.type" value="varbinary(max)" dbms="mssql"/>
+
+    <!-- Boolean Data type definition -->
+    <property name="boolean" value="NUMBER(1,0)" dbms="oracle,db2,db2i,h2"/>
+    <property name="boolean" value="boolean" dbms="postgresql"/>
+    <property name="boolean" value="BIT" dbms="mssql"/>
+
+    <!-- Boolean Default value -->
+    <property name="booleanTrue" value="1" dbms="oracle,db2,db2i,mssql,h2"/>
+    <property name="booleanTrue" value="true" dbms="postgresql"/>
+    <property name="booleanFalse" value="0" dbms="oracle,db2,db2i,mssql,h2"/>
+    <property name="booleanFalse" value="false" dbms="postgresql"/>
+
+    <!-- Current Timestamp value -->
+    <property name="nowTimestamp" value="CURRENT TIMESTAMP" dbms="db2,db2i"/>
+    <property name="nowTimestamp" value="CURRENT_TIMESTAMP" dbms="oracle,h2"/>
+    <property name="nowTimestamp" value="now" dbms="postgresql"/>
+    <property name="nowTimestamp" value="CURRENT_TIMESTAMP" dbms="mssql"/>
+
+</databaseChangeLog>
