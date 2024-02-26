@@ -13,4 +13,6 @@ public interface MoroRatingBookApiService {
     void reviewBook(BookReviewDto bookReviewDto);
 
     BookDetailsDto getBook(Integer bookId);
+
+    List<BookDto> getTopBooks(Integer booksNumber);
 }

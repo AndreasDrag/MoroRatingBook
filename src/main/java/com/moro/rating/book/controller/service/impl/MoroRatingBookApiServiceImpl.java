@@ -43,4 +43,12 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
                 .map(BookDetailsTransformer::toDto)
                 .orElse(null);
     }
+
+    @Override
+    public List<BookDto> getTopBooks(Integer booksNumber) {
+        return Optional.ofNullable(moroRatingBookService.getTopBooks(booksNumber))
+                .stream().flatMap(Collection::stream)
+                .map(BookTransformer::toDto)
+                .toList();
+    }
 }

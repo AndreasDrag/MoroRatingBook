@@ -122,4 +122,14 @@ class MoRatingBookControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    public void getTopBooksThen200HttpStatusIsReceived() throws Exception {
+        when(moroRatingBookApiService.getTopBooks(anyInt())).thenReturn(List.of(new BookDto.Builder().build()));
+
+        this.mockMvc.perform(get("/books/get/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+    }
 }

@@ -5,9 +5,11 @@ import com.moro.rating.book.repository.entity.BookReviewEntity;
 import com.moro.rating.book.repository.service.BookReviewRepositoryService;
 import com.moro.rating.book.service.model.BookReview;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +58,22 @@ class BookReviewRepositoryServiceImplTest {
         verify(bookReviewRepository, times(1)).findAllByBookId(84);
 
         assertEquals(2, bookReviews.size());
+    }
+
+    @Test
+    public void findTopBooks() {
+        when(bookReviewRepository.findTopNBooksIdsByAverageRate(any())).thenReturn(
+                Optional.of(List.of(84)));
+
+        List<Integer> topBookIds = bookReviewRepositoryService.findTopBooksIds(1);
+
+        ArgumentCaptor<Pageable> argumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+        verify(bookReviewRepository, times(1)).findTopNBooksIdsByAverageRate(argumentCaptor.capture());
+
+        Pageable pageable = argumentCaptor.getValue();
+        assertEquals(1, topBookIds.size());
+        assertEquals(84, topBookIds.get(0));
+        assertEquals(0, pageable.getPageNumber());
+        assertEquals(1, pageable.getPageSize());
     }
 }

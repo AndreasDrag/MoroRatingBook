@@ -130,4 +130,31 @@ class MoroRatingBookServiceImplTest {
         assertEquals("Review1", bookDetails.getReviews().get(0));
         assertEquals("Review2", bookDetails.getReviews().get(1));
     }
+
+    @Test
+    public void getTopBooksVerifyCallsTriggered() {
+        Author author = new Author.Builder()
+                .withName("Shelley")
+                .withBirthYear("1797")
+                .withDeathYear("1897")
+                .build();
+
+        Book book = new Book.Builder()
+                .withId(84)
+                .withTitle("Frankenstein")
+                .withLanguages(null)
+                .withDownloadCount(100)
+                .withAuthors(List.of(author))
+                .build();
+
+        when(bookClientService.getBook(anyInt())).thenReturn(book);
+        when(bookReviewRepositoryService.findTopBooksIds(anyInt())).thenReturn(List.of(84));
+
+        List<Book> books = moroRatingBookService.getTopBooks(1);
+
+        verify(bookClientService, times(1)).getBook(84);
+        verify(bookReviewRepositoryService, times(1)).findTopBooksIds(1);
+        assertEquals(1, books.size());
+        assertEquals(book, books.get(0));
+    }
 }

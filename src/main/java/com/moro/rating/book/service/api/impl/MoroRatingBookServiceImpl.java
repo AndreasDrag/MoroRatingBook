@@ -36,7 +36,7 @@ public class MoroRatingBookServiceImpl implements MoroRatingBookService {
         return bookClientService.searchBooks(title);
     }
 
-    @CacheEvict(value=GER_BOOK_CACHE_NAME, key="#bookReview.bookId")
+    @CacheEvict(value = GER_BOOK_CACHE_NAME, key = "#bookReview.bookId")
     @Override
     public void reviewBook(BookReview bookReview) {
         bookReviewRepositoryService.save(BookReviewEntityTransformer.toEntity(bookReview));
@@ -62,5 +62,13 @@ public class MoroRatingBookServiceImpl implements MoroRatingBookService {
                 .withAuthors(book.getAuthors())
                 .withDownloadCount(book.getDownloadCount())
                 .build();
+    }
+
+    @Override
+    public List<Book> getTopBooks(Integer booksNumber) {
+        List<Integer> topBookIds = bookReviewRepositoryService.findTopBooksIds(booksNumber);
+        return topBookIds.stream()
+                .map(bookClientService::getBook)
+                .toList();
     }
 }

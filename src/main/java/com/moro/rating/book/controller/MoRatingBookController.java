@@ -58,4 +58,15 @@ public class MoRatingBookController {
         return ResponseEntity.ok().body(moroRatingBookApiService.getBook(bookId));
     }
 
+    @GetMapping("/get/top/{booksNumber}")
+    @Operation(summary = "Get Book Details")
+    public ResponseEntity<List<BookDto>> getTopBooks(
+            @Parameter(description = "Top Books Number", required = true)
+            @PathVariable("booksNumber")
+            @NotNull(message = "Top Books NUmber is empty.")
+            @IntegerId
+            Integer booksNumber) {
+        return ResponseEntity.ok().body(moroRatingBookApiService.getTopBooks(booksNumber));
+    }
+
 }

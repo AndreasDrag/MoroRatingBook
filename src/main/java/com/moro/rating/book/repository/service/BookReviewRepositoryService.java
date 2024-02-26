@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BookReviewRepositoryService extends AbstractRepositoryService<BookReviewEntity, Long> {
     List<BookReview> findBookReviewsByBookId(Integer bookId);
+
+    List<Integer> findTopBooksIds(Integer booksNumber);
 }
