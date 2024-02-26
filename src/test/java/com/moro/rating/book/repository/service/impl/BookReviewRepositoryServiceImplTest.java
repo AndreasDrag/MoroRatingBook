@@ -2,8 +2,10 @@ package com.moro.rating.book.repository.service.impl;
 
 import com.moro.rating.book.repository.BookReviewRepository;
 import com.moro.rating.book.repository.entity.BookReviewEntity;
+import com.moro.rating.book.repository.entity.RatingPerMonthEntity;
 import com.moro.rating.book.repository.service.BookReviewRepositoryService;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.RatingPerMonth;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +77,20 @@ class BookReviewRepositoryServiceImplTest {
         assertEquals(84, topBookIds.get(0));
         assertEquals(0, pageable.getPageNumber());
         assertEquals(1, pageable.getPageSize());
+    }
+
+    @Test
+    public void findBookRatingPerMonth() {
+        RatingPerMonthEntity entity = new RatingPerMonthEntity("02-2024", 4.0);
+
+        when(bookReviewRepository.findBookRatingPerMonth(any())).thenReturn(Optional.of(List.of(entity)));
+
+        List<RatingPerMonth> bookRatingPerMonth = bookReviewRepositoryService.findBookRatingPerMonth(84);
+
+        verify(bookReviewRepository, times(1)).findBookRatingPerMonth(84);
+
+        assertEquals(1, bookRatingPerMonth.size());
+        assertEquals(4.0, bookRatingPerMonth.get(0).getRating());
+        assertEquals("02-2024", bookRatingPerMonth.get(0).getCreatedDate());
     }
 }

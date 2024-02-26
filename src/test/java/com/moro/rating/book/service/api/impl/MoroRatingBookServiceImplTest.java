@@ -7,7 +7,9 @@ import com.moro.rating.book.service.api.MoroRatingBookService;
 import com.moro.rating.book.service.model.Author;
 import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
+import com.moro.rating.book.service.model.BookRatingPerMonth;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.RatingPerMonth;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,5 +158,21 @@ class MoroRatingBookServiceImplTest {
         verify(bookReviewRepositoryService, times(1)).findTopBooksIds(1);
         assertEquals(1, books.size());
         assertEquals(book, books.get(0));
+    }
+
+    @Test
+    void getBookRatingPerMonthVerifyCallsTriggered() {
+        RatingPerMonth ratingPerMonth = new RatingPerMonth.Builder()
+                .withRating(4.0)
+                .withCreatedDate("01-2024")
+                .build();
+        when(bookReviewRepositoryService.findBookRatingPerMonth(anyInt())).thenReturn(List.of(ratingPerMonth));
+
+        BookRatingPerMonth bookRatingPerMonth = moroRatingBookService.getBookRatingPerMonth(84);
+
+        assertEquals(84, bookRatingPerMonth.getId());
+        assertEquals(1, bookRatingPerMonth.getRatingPerMonth().size());
+        assertEquals(4.0, bookRatingPerMonth.getRatingPerMonth().get(0).getRating());
+        assertEquals("01-2024", bookRatingPerMonth.getRatingPerMonth().get(0).getCreatedDate());
     }
 }

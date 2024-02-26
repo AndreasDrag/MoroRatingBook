@@ -2,6 +2,7 @@ package com.moro.rating.book.controller.service;
 
 import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.controller.dto.BookDto;
+import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface MoroRatingBookApiService {
     BookDetailsDto getBook(Integer bookId);
 
     List<BookDto> getTopBooks(Integer booksNumber);
+
+    BookRatingPerMonthDto getBookRatingPerMonth(Integer bookId);
 }

@@ -35,4 +35,8 @@
     <property name="nowTimestamp" value="now" dbms="postgresql"/>
     <property name="nowTimestamp" value="CURRENT_TIMESTAMP" dbms="mssql"/>
 
+    <property name="now" value="SYSDATE" dbms="oracle"/>
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="now" value="now()" dbms="postgresql"/>
+
 </databaseChangeLog>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.controller.dto.BookDto;
+import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.controller.service.MoroRatingBookApiService;
 import org.junit.jupiter.api.Test;
@@ -127,7 +128,17 @@ class MoRatingBookControllerTest {
     public void getTopBooksThen200HttpStatusIsReceived() throws Exception {
         when(moroRatingBookApiService.getTopBooks(anyInt())).thenReturn(List.of(new BookDto.Builder().build()));
 
-        this.mockMvc.perform(get("/books/get/1")
+        this.mockMvc.perform(get("/books/get/top/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void getBookRatingPerMonthThen200HttpStatusIsReceived() throws Exception {
+        when(moroRatingBookApiService.getBookRatingPerMonth(anyInt())).thenReturn(new BookRatingPerMonthDto.Builder().build());
+
+        this.mockMvc.perform(get("/books/rating-per-month/84")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());

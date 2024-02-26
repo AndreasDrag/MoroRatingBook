@@ -2,6 +2,7 @@ package com.moro.rating.book.controller;
 
 import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.controller.dto.BookDto;
+import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.controller.service.MoroRatingBookApiService;
 import com.moro.rating.book.controller.validator.annotation.IntegerId;
@@ -59,14 +60,25 @@ public class MoRatingBookController {
     }
 
     @GetMapping("/get/top/{booksNumber}")
-    @Operation(summary = "Get Book Details")
+    @Operation(summary = "Get Top Books")
     public ResponseEntity<List<BookDto>> getTopBooks(
             @Parameter(description = "Top Books Number", required = true)
             @PathVariable("booksNumber")
-            @NotNull(message = "Top Books NUmber is empty.")
+            @NotNull(message = "Top Books Number is empty.")
             @IntegerId
             Integer booksNumber) {
         return ResponseEntity.ok().body(moroRatingBookApiService.getTopBooks(booksNumber));
+    }
+
+    @GetMapping("/rating-per-month/{bookId}")
+    @Operation(summary = "Get Book Rating Per Month")
+    public ResponseEntity<BookRatingPerMonthDto> getBookRatingPerMonth(
+            @Parameter(description = "Book ID", required = true)
+            @PathVariable("bookId")
+            @NotNull(message = "Book ID is empty.")
+            @IntegerId
+            Integer bookId) {
+        return ResponseEntity.ok().body(moroRatingBookApiService.getBookRatingPerMonth(bookId));
     }
 
 }

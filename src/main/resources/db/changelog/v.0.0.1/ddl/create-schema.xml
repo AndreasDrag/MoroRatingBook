@@ -23,4 +23,14 @@
 
     </changeSet>
 
+    <changeSet author="moro" id="book_review-add-created-date-column">
+
+        <addColumn tableName="book_review">
+            <column name="created_date" type="date" defaultValueComputed="now()">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+
 </databaseChangeLog>

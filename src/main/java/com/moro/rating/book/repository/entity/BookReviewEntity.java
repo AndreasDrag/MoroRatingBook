@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "BOOK_REVIEW")
@@ -26,6 +29,10 @@ public final class BookReviewEntity {
 
     @Column(name = "REVIEW", nullable = false)
     private String review;
+
+    @CreatedDate
+    @Column(name = "CREATED_DATE", nullable = false, updatable = false)
+    private LocalDate createdDate;
 
     public Long getId() {
         return id;
@@ -57,5 +64,13 @@ public final class BookReviewEntity {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
     }
 }

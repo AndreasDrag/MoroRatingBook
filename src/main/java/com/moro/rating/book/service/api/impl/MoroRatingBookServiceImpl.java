@@ -6,6 +6,7 @@ import com.moro.rating.book.repository.transformer.BookReviewEntityTransformer;
 import com.moro.rating.book.service.api.MoroRatingBookService;
 import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
+import com.moro.rating.book.service.model.BookRatingPerMonth;
 import com.moro.rating.book.service.model.BookReview;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -70,5 +71,13 @@ public class MoroRatingBookServiceImpl implements MoroRatingBookService {
         return topBookIds.stream()
                 .map(bookClientService::getBook)
                 .toList();
+    }
+
+    @Override
+    public BookRatingPerMonth getBookRatingPerMonth(Integer bookId) {
+        return new BookRatingPerMonth.Builder()
+                .withId(bookId)
+                .withRatingPerMonth(bookReviewRepositoryService.findBookRatingPerMonth(bookId))
+                .build();
     }
 }

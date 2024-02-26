@@ -4,7 +4,9 @@ import com.moro.rating.book.repository.BookReviewRepository;
 import com.moro.rating.book.repository.entity.BookReviewEntity;
 import com.moro.rating.book.repository.service.BookReviewRepositoryService;
 import com.moro.rating.book.repository.transformer.BookReviewEntityTransformer;
+import com.moro.rating.book.repository.transformer.RatingPerMonthEntityTransformer;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.RatingPerMonth;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +40,14 @@ public class BookReviewRepositoryServiceImpl extends AbstractRepositoryServiceIm
         Pageable pageable = PageRequest.of(0, booksNumber);
         return bookReviewRepository.findTopNBooksIdsByAverageRate(pageable)
                 .orElse(new ArrayList<>());
+    }
+
+    @Override
+    public List<RatingPerMonth> findBookRatingPerMonth(Integer bookId) {
+        return bookReviewRepository.findBookRatingPerMonth(bookId)
+                .stream().flatMap(Collection::stream)
+                .map(RatingPerMonthEntityTransformer::toModel)
+                .toList();
     }
 
     @Override

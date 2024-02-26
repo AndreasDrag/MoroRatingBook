@@ -3,6 +3,8 @@ package com.moro.rating.book.repository.transformer;
 import com.moro.rating.book.repository.entity.BookReviewEntity;
 import com.moro.rating.book.service.model.BookReview;
 
+import java.time.LocalDate;
+
 public class BookReviewEntityTransformer {
     public static BookReview toModel(BookReviewEntity bookReviewEntity) {
         if (bookReviewEntity == null) {
@@ -23,6 +25,7 @@ public class BookReviewEntityTransformer {
         bookReviewEntity.setBookId(bookReview.getBookId());
         bookReviewEntity.setRate(bookReview.getRate());
         bookReviewEntity.setReview(bookReview.getReview());
+        bookReviewEntity.setCreatedDate(LocalDate.now());
         return bookReviewEntity;
     }
 }

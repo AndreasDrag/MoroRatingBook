@@ -2,9 +2,11 @@ package com.moro.rating.book.controller.service.impl;
 
 import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.controller.dto.BookDto;
+import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.controller.service.MoroRatingBookApiService;
 import com.moro.rating.book.controller.transformer.BookDetailsTransformer;
+import com.moro.rating.book.controller.transformer.BookRatingPerMonthTransformer;
 import com.moro.rating.book.controller.transformer.BookReviewDtoTransformer;
 import com.moro.rating.book.controller.transformer.BookTransformer;
 import com.moro.rating.book.service.api.MoroRatingBookService;
@@ -50,5 +52,12 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
                 .stream().flatMap(Collection::stream)
                 .map(BookTransformer::toDto)
                 .toList();
+    }
+
+    @Override
+    public BookRatingPerMonthDto getBookRatingPerMonth(Integer bookId) {
+        return Optional.ofNullable(moroRatingBookService.getBookRatingPerMonth(bookId))
+                .map(BookRatingPerMonthTransformer::toDto)
+                .orElse(null);
     }
 }
