@@ -21,10 +21,10 @@ public class GutendexBookClient implements BookClient {
         this.bookClientRestTemplate = bookClientRestTemplate;
     }
 
-    public ClientSearchBooksResponseDto searchBooks(String description) {
+    public ClientSearchBooksResponseDto searchBooks(String term) {
         ResponseEntity<ClientSearchBooksResponseDto> search =
                 new RestRequest<ClientSearchBooksResponseDto>(bookClientRestTemplate, clientUrl)
-                        .queryParam("search", description)
+                        .queryParam("search", term)
                         .responseType(ClientSearchBooksResponseDto.class)
                         .get();
         return search.getBody();

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/books")
+@Slf4j
 public class MoRatingBookController {
 
     private final MoroRatingBookApiService moroRatingBookApiService;
@@ -38,12 +40,14 @@ public class MoRatingBookController {
             @PathVariable("title")
             @NotNull(message = "Book title is empty.")
             String title) {
+        log.info("Search book with term: {}", title);
         return ResponseEntity.ok().body(moroRatingBookApiService.searchBook(title));
     }
 
     @PutMapping("/review")
     @Operation(summary = "Review Book")
     public ResponseEntity<HttpStatus> reviewBook(@RequestBody @Valid BookReviewDto bookReviewDto) {
+        log.info("Review Book with ID: {}", bookReviewDto.getBookId());
         moroRatingBookApiService.reviewBook(bookReviewDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -56,6 +60,7 @@ public class MoRatingBookController {
             @NotNull(message = "Book ID is empty.")
             @IntegerId
             Integer bookId) {
+        log.info("Get Book Details for book with ID: {}", bookId);
         return ResponseEntity.ok().body(moroRatingBookApiService.getBook(bookId));
     }
 
@@ -67,6 +72,7 @@ public class MoRatingBookController {
             @NotNull(message = "Top Books Number is empty.")
             @IntegerId
             Integer booksNumber) {
+        log.info("Get Top {} Books", booksNumber);
         return ResponseEntity.ok().body(moroRatingBookApiService.getTopBooks(booksNumber));
     }
 
@@ -78,6 +84,7 @@ public class MoRatingBookController {
             @NotNull(message = "Book ID is empty.")
             @IntegerId
             Integer bookId) {
+        log.info("Get Book Rating Per Month for book with ID: {}", bookId);
         return ResponseEntity.ok().body(moroRatingBookApiService.getBookRatingPerMonth(bookId));
     }
 
