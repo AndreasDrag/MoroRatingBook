@@ -55,7 +55,7 @@ class MoroRatingBookApiServiceImplTest {
                 .withAuthors(List.of(author))
                 .build();
 
-        when(moroRatingBookService.searchBook(anyString(), anyInt())).thenReturn(
+        when(moroRatingBookService.searchBooks(anyString(), anyInt())).thenReturn(
                 new PagedResult.Builder<List<Book>>()
                         .withData(List.of(book))
                         .withPage(0)
@@ -63,9 +63,9 @@ class MoroRatingBookApiServiceImplTest {
                         .withSize(1)
                         .build());
 
-        PagedResult<List<BookDto>> result = moroRatingBookApiService.searchBook("Frankenstein", 0);
+        PagedResult<List<BookDto>> result = moroRatingBookApiService.searchBooks("Frankenstein", 0);
 
-        verify(moroRatingBookService, times(1)).searchBook("Frankenstein", 0);
+        verify(moroRatingBookService, times(1)).searchBooks("Frankenstein", 0);
 
         assertEquals(1, result.getData().size());
         assertEquals(84, result.getData().get(0).getId());

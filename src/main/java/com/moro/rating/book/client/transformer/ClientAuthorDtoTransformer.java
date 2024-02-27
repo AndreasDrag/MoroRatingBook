@@ -4,7 +4,7 @@ package com.moro.rating.book.client.transformer;
 import com.moro.rating.book.client.model.ClientAuthorDto;
 import com.moro.rating.book.service.model.Author;
 
-public class AuthorDtoTransformer {
+public class ClientAuthorDtoTransformer {
     public static Author toModel(ClientAuthorDto clientAuthorDto) {
         if (clientAuthorDto == null) {
             return null;

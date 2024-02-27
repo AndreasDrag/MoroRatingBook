@@ -3,12 +3,10 @@ package com.moro.rating.book.controller.transformer;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.service.model.BookReview;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest
 class BookReviewDtoTransformerTest {
 
     @Test

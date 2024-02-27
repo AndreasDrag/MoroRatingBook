@@ -5,7 +5,7 @@ import com.moro.rating.book.client.model.ClientBookDto;
 import com.moro.rating.book.service.model.Book;
 import org.springframework.util.CollectionUtils;
 
-public class BookDtoTransformer {
+public class ClientBookDtoTransformer {
     public static Book toModel(ClientBookDto clientBookDto) {
         if (clientBookDto == null) {
             return null;
@@ -20,7 +20,7 @@ public class BookDtoTransformer {
                                 ? null
                                 : clientBookDto.getAuthors()
                                 .stream()
-                                .map(AuthorDtoTransformer::toModel)
+                                .map(ClientAuthorDtoTransformer::toModel)
                                 .toList()
                 )
                 .build();

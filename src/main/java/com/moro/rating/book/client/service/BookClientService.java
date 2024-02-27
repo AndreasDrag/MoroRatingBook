@@ -10,4 +10,6 @@ public interface BookClientService {
     PagedResult<List<Book>> searchBooks(String term, int page);
 
     Book getBook(Integer bookId);
+
+    List<Book> getBooksByIds(List<Integer> bookIds);
 }

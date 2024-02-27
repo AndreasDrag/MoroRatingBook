@@ -3,16 +3,20 @@ package com.moro.rating.book.controller.handler;
 import com.moro.rating.book.client.exception.MoroRatingBookClientException;
 import com.moro.rating.book.service.MoroRatingBookException;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.method.ParameterValidationResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -36,6 +40,18 @@ public class GlobalExceptionHandler {
         return error(exception.getBindingResult().getFieldErrors()
                 .stream()
                 .map(FieldError::getDefaultMessage)
+                .toList());
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, Object> handle(HandlerMethodValidationException exception) {
+        return error(exception.getAllValidationResults()
+                .stream()
+                .map(ParameterValidationResult::getResolvableErrors)
+                .flatMap(Collection::stream)
+                .map(MessageSourceResolvable::getDefaultMessage)
                 .toList());
     }
 

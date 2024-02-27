@@ -4,14 +4,12 @@ import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.service.model.Author;
 import com.moro.rating.book.service.model.BookDetails;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest
 class BookDetailsTransformerTest {
 
     @Test

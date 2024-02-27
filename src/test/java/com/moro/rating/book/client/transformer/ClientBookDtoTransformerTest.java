@@ -4,19 +4,17 @@ import com.moro.rating.book.client.model.ClientAuthorDto;
 import com.moro.rating.book.client.model.ClientBookDto;
 import com.moro.rating.book.service.model.Book;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest
-class BookDtoTransformerTest {
+class ClientBookDtoTransformerTest {
 
     @Test
     public void toModelWhenDtoIsNull() {
-        assertNull(BookDtoTransformer.toModel(null));
+        assertNull(ClientBookDtoTransformer.toModel(null));
     }
 
     @Test
@@ -28,7 +26,7 @@ class BookDtoTransformerTest {
         clientBookDto.setDownloadCount(100);
         clientBookDto.setAuthors(null);
 
-        Book book = BookDtoTransformer.toModel(clientBookDto);
+        Book book = ClientBookDtoTransformer.toModel(clientBookDto);
 
         assertEquals(84, book.getId());
         assertEquals("Frankenstein", book.getTitle());
@@ -52,7 +50,7 @@ class BookDtoTransformerTest {
         clientBookDto.setDownloadCount(100);
         clientBookDto.setAuthors(List.of(clientAuthorDto));
 
-        Book book = BookDtoTransformer.toModel(clientBookDto);
+        Book book = ClientBookDtoTransformer.toModel(clientBookDto);
 
         assertEquals(84, book.getId());
         assertEquals("Frankenstein", book.getTitle());
@@ -78,7 +76,7 @@ class BookDtoTransformerTest {
         clientBookDto.setDownloadCount(100);
         clientBookDto.setAuthors(List.of(clientAuthorDto));
 
-        Book book = BookDtoTransformer.toModel(clientBookDto);
+        Book book = ClientBookDtoTransformer.toModel(clientBookDto);
 
         assertEquals(84, book.getId());
         assertEquals("Frankenstein", book.getTitle());

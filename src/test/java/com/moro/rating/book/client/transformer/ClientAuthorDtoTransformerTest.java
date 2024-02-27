@@ -3,17 +3,15 @@ package com.moro.rating.book.client.transformer;
 import com.moro.rating.book.client.model.ClientAuthorDto;
 import com.moro.rating.book.service.model.Author;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@SpringBootTest
-class AuthorDtoTransformerTest {
+class ClientAuthorDtoTransformerTest {
 
     @Test
     public void toModelWhenDtoIsNull() {
-        assertNull(AuthorDtoTransformer.toModel(null));
+        assertNull(ClientAuthorDtoTransformer.toModel(null));
     }
 
     @Test
@@ -23,7 +21,7 @@ class AuthorDtoTransformerTest {
         clientAuthorDto.setBirthYear("1797");
         clientAuthorDto.setDeathYear("1897");
 
-        Author author = AuthorDtoTransformer.toModel(clientAuthorDto);
+        Author author = ClientAuthorDtoTransformer.toModel(clientAuthorDto);
 
         assertEquals("Shelley", author.getName());
         assertEquals("1797", author.getBirthYear());

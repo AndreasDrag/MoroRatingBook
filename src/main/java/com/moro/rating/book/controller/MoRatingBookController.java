@@ -10,6 +10,7 @@ import com.moro.rating.book.service.model.PagedResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,17 +36,19 @@ public class MoRatingBookController {
         this.moroRatingBookApiService = moroRatingBookApiService;
     }
 
-    @GetMapping("/search/{title}")
+    @GetMapping("/search/{term}")
     @Operation(summary = "Search Book")
-    public ResponseEntity<PagedResult<List<BookDto>>> searchBook(
+    public ResponseEntity<PagedResult<List<BookDto>>> searchBooks(
             @Parameter(description = "Book Title", required = true)
-            @PathVariable("title")
-            @NotNull(message = "Book title is empty.")
-            String title,
+            @PathVariable("term")
+            @NotNull(message = "Book search term is empty.")
+            String term,
             @Parameter(description = "Page Number")
-            @RequestParam(defaultValue = "0") int page) {
-        log.info("Search book with term: {} and page: {}", title, page);
-        return ResponseEntity.ok().body(moroRatingBookApiService.searchBook(title, page));
+            @RequestParam(defaultValue = "1")
+            @Min(value = 1, message = "Page should be a positive number.")
+            int page) {
+        log.info("Search book with term: {} and page: {}", term, page);
+        return ResponseEntity.ok().body(moroRatingBookApiService.searchBooks(term, page));
     }
 
     @PutMapping("/review")

@@ -9,7 +9,7 @@ import com.moro.rating.book.service.model.PagedResult;
 import java.util.List;
 
 public interface MoroRatingBookService {
-    PagedResult<List<Book>> searchBook(String title, int page);
+    PagedResult<List<Book>> searchBooks(String term, int page);
 
     void reviewBook(BookReview bookReview);
 

@@ -28,10 +28,10 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
     }
 
     @Override
-    public PagedResult<List<BookDto>> searchBook(String title, int page) {
-        return Optional.ofNullable(moroRatingBookService.searchBook(title, page))
+    public PagedResult<List<BookDto>> searchBooks(String term, int page) {
+        return Optional.ofNullable(moroRatingBookService.searchBooks(term, page))
                 .map(result -> new PagedResult.Builder<List<BookDto>>()
-                        .withData(getData(result.getData()))
+                        .withData(toBookDtoList(result.getData()))
                         .withTotal(result.getTotal())
                         .withSize(result.getSize())
                         .withPage(result.getPage())
@@ -39,7 +39,7 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
                 .orElse(null);
     }
 
-    private static List<BookDto> getData(List<Book> result) {
+    private static List<BookDto> toBookDtoList(List<Book> result) {
         return Optional.ofNullable(result)
                 .stream().flatMap(Collection::stream)
                 .map(BookTransformer::toDto)
@@ -49,7 +49,8 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
     @Override
     public void reviewBook(BookReviewDto bookReviewDto) {
         moroRatingBookService.reviewBook(Optional.ofNullable(bookReviewDto)
-                .map(BookReviewDtoTransformer::toModel).orElse(null));
+                .map(BookReviewDtoTransformer::toModel)
+                .orElse(null));
     }
 
     @Override

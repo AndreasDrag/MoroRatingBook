@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MoroRatingBookApiService {
 
-    PagedResult<List<BookDto>> searchBook(String title, int page);
+    PagedResult<List<BookDto>> searchBooks(String term, int page);
 
     void reviewBook(BookReviewDto bookReviewDto);
 

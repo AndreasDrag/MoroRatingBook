@@ -12,7 +12,7 @@ http://localhost:9000/moro/rating/swagger-ui/index.html#/
 
 First we should create the DB. Redirect to postgres file:
 ```
-cd docker/postgres/
+cd docker/
 ```
 and run the  docker compose command:
 ```

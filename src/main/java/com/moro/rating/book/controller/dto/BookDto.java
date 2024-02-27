@@ -8,14 +8,14 @@ import java.util.List;
 public class BookDto {
     private final Integer id;
     private final String title;
-    private final List<AuthorDto> authorDtos;
+    private final List<AuthorDto> authors;
     private final List<String> languages;
     private final Integer downloadCount;
 
     private BookDto(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
-        this.authorDtos = builder.authorDtos;
+        this.authors = builder.authors;
         this.languages = builder.languages;
         this.downloadCount = builder.downloadCount;
     }
@@ -29,7 +29,7 @@ public class BookDto {
     }
 
     public List<AuthorDto> getAuthors() {
-        return authorDtos;
+        return authors;
     }
 
     public List<String> getLanguages() {
@@ -43,7 +43,7 @@ public class BookDto {
     public static class Builder {
         private Integer id;
         private String title;
-        private List<AuthorDto> authorDtos;
+        private List<AuthorDto> authors;
         private List<String> languages;
         private Integer downloadCount;
 
@@ -57,8 +57,8 @@ public class BookDto {
             return this;
         }
 
-        public Builder withAuthors(List<AuthorDto> authorDtos) {
-            this.authorDtos = authorDtos;
+        public Builder withAuthors(List<AuthorDto> authors) {
+            this.authors = authors;
             return this;
         }
 

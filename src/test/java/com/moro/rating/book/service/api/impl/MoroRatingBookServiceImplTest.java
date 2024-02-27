@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -62,7 +63,7 @@ class MoroRatingBookServiceImplTest {
                         .withSize(1)
                         .build());
 
-        PagedResult<List<Book>> result = moroRatingBookService.searchBook("Frankenstein", 0);
+        PagedResult<List<Book>> result = moroRatingBookService.searchBooks("Frankenstein", 0);
 
         verify(bookClientService, times(1)).searchBooks("Frankenstein", 0);
         assertEquals(1, result.getData().size());
@@ -159,12 +160,12 @@ class MoroRatingBookServiceImplTest {
                 .withAuthors(List.of(author))
                 .build();
 
-        when(bookClientService.getBook(anyInt())).thenReturn(book);
+        when(bookClientService.getBooksByIds(anyList())).thenReturn(List.of(book));
         when(bookReviewRepositoryService.findTopBooksIds(anyInt())).thenReturn(List.of(84));
 
         List<Book> books = moroRatingBookService.getTopBooks(1);
 
-        verify(bookClientService, times(1)).getBook(84);
+        verify(bookClientService, times(1)).getBooksByIds(List.of(84));
         verify(bookReviewRepositoryService, times(1)).findTopBooksIds(1);
         assertEquals(1, books.size());
         assertEquals(book, books.get(0));

@@ -18,7 +18,6 @@ public interface BookReviewRepository extends JpaRepository<BookReviewEntity, Lo
     @Query("SELECT bre.bookId FROM BookReviewEntity bre GROUP BY bre.bookId ORDER BY AVG(bre.rate) DESC")
     Optional<List<Integer>> findTopNBooksIdsByAverageRate(Pageable pageable);
 
-    //        @Query("select innerTable.monthYearDate as createdDCate, avg(innerTable.rate) as rating from (select operator('ToChar', bre.createdDate, 'MM-YYYY') as monthYearDate, bre.rate as rate from BookReviewEntity bre where bre.bookId = :bookId) as innerTable group by innerTable.monthYearDate")
     @Query("SELECT " +
             "    new com.moro.rating.book.repository.entity.RatingPerMonthEntity(to_char(br.createdDate, 'MM-YYYY'), " +
             "    AVG(br.rate)) " +

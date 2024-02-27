@@ -46,7 +46,7 @@ class MoRatingBookControllerTest {
 
     @Test
     public void searchBookThen200HttpStatusIsReceived() throws Exception {
-        when(moroRatingBookApiService.searchBook(anyString(), anyInt())).thenReturn(
+        when(moroRatingBookApiService.searchBooks(anyString(), anyInt())).thenReturn(
                 new PagedResult.Builder<List<BookDto>>()
                         .withData(List.of(new BookDto.Builder().build()))
                         .withPage(0)

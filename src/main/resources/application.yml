@@ -38,11 +38,6 @@ application:
 logging:
   level:
     root: INFO
-    com.intrasoft.dxb: TRACE
-    #    io.lettuce.core: TRACE
-    redis.clients: INFO
-    org.springframework.kafka.requestreply: INFO
-    org.apache.kafka: INFO
     org.springframework: INFO
   pattern:
     level: '%5p %mdc'
