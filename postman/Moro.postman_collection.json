@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "3472922d-78c0-410f-b7e2-cbba6595cb6e",
+		"name": "Moro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5672198"
+	},
+	"item": [
+		{
+			"name": "Gutendex API",
+			"item": [
+				{
+					"name": "gutendex-search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"count\": 72930,\r\n  \"next\": \"https://gutendex.com/books/?page=2\",\r\n  \"previous\": null,\r\n  \"results\": [\r\n    {\r\n      \"id\": 84,\r\n      \"title\": \"Frankenstein; Or, The Modern Prometheus\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gutendex.com/books?search=Frankenstein",
+							"protocol": "https",
+							"host": [
+								"gutendex",
+								"com"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Frankenstein"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gutendex-searchByIds",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"count\": 72930,\r\n  \"next\": \"https://gutendex.com/books/?page=2\",\r\n  \"previous\": null,\r\n  \"results\": [\r\n    {\r\n      \"id\": 84,\r\n      \"title\": \"Frankenstein; Or, The Modern Prometheus\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gutendex.com/books?ids=84,6",
+							"protocol": "https",
+							"host": [
+								"gutendex",
+								"com"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "84,6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "gutendex-get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"count\": 72930,\r\n  \"next\": \"https://gutendex.com/books/?page=2\",\r\n  \"previous\": null,\r\n  \"results\": [\r\n    {\r\n      \"id\": 84,\r\n      \"title\": \"Frankenstein; Or, The Modern Prometheus\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gutendex.com/books/84",
+							"protocol": "https",
+							"host": [
+								"gutendex",
+								"com"
+							],
+							"path": [
+								"books",
+								"84"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Moro Rating Book API",
+			"item": [
+				{
+					"name": "Search Book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/moro/rating/books/search/F",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"moro",
+								"rating",
+								"books",
+								"search",
+								"F"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/moro/rating/books/get/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"moro",
+								"rating",
+								"books",
+								"get",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Review Book",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bookId\": 1,\r\n    \"rate\": 1,\r\n    \"review\": \"A Review\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/moro/rating/books/review",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"moro",
+								"rating",
+								"books",
+								"review"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/moro/rating/books/get/top/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"moro",
+								"rating",
+								"books",
+								"get",
+								"top",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book Rating Per Month",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/moro/rating/books/rating-per-month/84",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"moro",
+								"rating",
+								"books",
+								"rating-per-month",
+								"84"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
