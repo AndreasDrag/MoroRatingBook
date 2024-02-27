@@ -8,6 +8,7 @@ import com.moro.rating.book.controller.dto.BookDto;
 import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.controller.service.MoroRatingBookApiService;
+import com.moro.rating.book.service.model.PagedResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,13 @@ class MoRatingBookControllerTest {
 
     @Test
     public void searchBookThen200HttpStatusIsReceived() throws Exception {
-        when(moroRatingBookApiService.searchBook(anyString())).thenReturn(List.of(new BookDto.Builder().build()));
+        when(moroRatingBookApiService.searchBook(anyString(), anyInt())).thenReturn(
+                new PagedResult.Builder<List<BookDto>>()
+                        .withData(List.of(new BookDto.Builder().build()))
+                        .withPage(0)
+                        .withTotal(1)
+                        .withSize(1)
+                        .build());
 
         this.mockMvc.perform(get("/books/search/Frankenstein")
                         .contentType(MediaType.APPLICATION_JSON))

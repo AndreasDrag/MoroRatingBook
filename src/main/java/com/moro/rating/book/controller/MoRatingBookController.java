@@ -6,6 +6,7 @@ import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
 import com.moro.rating.book.controller.service.MoroRatingBookApiService;
 import com.moro.rating.book.controller.validator.annotation.IntegerId;
+import com.moro.rating.book.service.model.PagedResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,13 +37,15 @@ public class MoRatingBookController {
 
     @GetMapping("/search/{title}")
     @Operation(summary = "Search Book")
-    public ResponseEntity<List<BookDto>> searchBook(
+    public ResponseEntity<PagedResult<List<BookDto>>> searchBook(
             @Parameter(description = "Book Title", required = true)
             @PathVariable("title")
             @NotNull(message = "Book title is empty.")
-            String title) {
-        log.info("Search book with term: {}", title);
-        return ResponseEntity.ok().body(moroRatingBookApiService.searchBook(title));
+            String title,
+            @Parameter(description = "Page Number")
+            @RequestParam(defaultValue = "0") int page) {
+        log.info("Search book with term: {} and page: {}", title, page);
+        return ResponseEntity.ok().body(moroRatingBookApiService.searchBook(title, page));
     }
 
     @PutMapping("/review")

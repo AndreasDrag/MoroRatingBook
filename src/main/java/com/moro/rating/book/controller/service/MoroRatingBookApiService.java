@@ -4,12 +4,13 @@ import com.moro.rating.book.controller.dto.BookDetailsDto;
 import com.moro.rating.book.controller.dto.BookDto;
 import com.moro.rating.book.controller.dto.BookRatingPerMonthDto;
 import com.moro.rating.book.controller.dto.BookReviewDto;
+import com.moro.rating.book.service.model.PagedResult;
 
 import java.util.List;
 
 public interface MoroRatingBookApiService {
 
-    List<BookDto> searchBook(String title);
+    PagedResult<List<BookDto>> searchBook(String title, int page);
 
     void reviewBook(BookReviewDto bookReviewDto);
 

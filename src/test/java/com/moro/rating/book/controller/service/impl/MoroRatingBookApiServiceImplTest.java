@@ -11,6 +11,7 @@ import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
 import com.moro.rating.book.service.model.BookRatingPerMonth;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.PagedResult;
 import com.moro.rating.book.service.model.RatingPerMonth;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -54,22 +55,31 @@ class MoroRatingBookApiServiceImplTest {
                 .withAuthors(List.of(author))
                 .build();
 
-        when(moroRatingBookService.searchBook(anyString())).thenReturn(List.of(book));
+        when(moroRatingBookService.searchBook(anyString(), anyInt())).thenReturn(
+                new PagedResult.Builder<List<Book>>()
+                        .withData(List.of(book))
+                        .withPage(0)
+                        .withTotal(1)
+                        .withSize(1)
+                        .build());
 
-        List<BookDto> books = moroRatingBookApiService.searchBook("Frankenstein");
+        PagedResult<List<BookDto>> result = moroRatingBookApiService.searchBook("Frankenstein", 0);
 
-        verify(moroRatingBookService, times(1)).searchBook("Frankenstein");
+        verify(moroRatingBookService, times(1)).searchBook("Frankenstein", 0);
 
-        assertEquals(1, books.size());
-        assertEquals(84, books.get(0).getId());
-        assertEquals("Frankenstein", books.get(0).getTitle());
-        assertEquals(100, books.get(0).getDownloadCount());
-        assertNotNull(books.get(0).getAuthors());
-        assertEquals("Shelley", books.get(0).getAuthors().get(0).getName());
-        assertEquals("1797", books.get(0).getAuthors().get(0).getBirthYear());
-        assertEquals("1897", books.get(0).getAuthors().get(0).getDeathYear());
-        assertEquals(1, books.get(0).getLanguages().size());
-        assertEquals("en", books.get(0).getLanguages().get(0));
+        assertEquals(1, result.getData().size());
+        assertEquals(84, result.getData().get(0).getId());
+        assertEquals("Frankenstein", result.getData().get(0).getTitle());
+        assertEquals(100, result.getData().get(0).getDownloadCount());
+        assertNotNull(result.getData().get(0).getAuthors());
+        assertEquals("Shelley", result.getData().get(0).getAuthors().get(0).getName());
+        assertEquals("1797", result.getData().get(0).getAuthors().get(0).getBirthYear());
+        assertEquals("1897", result.getData().get(0).getAuthors().get(0).getDeathYear());
+        assertEquals(1, result.getData().get(0).getLanguages().size());
+        assertEquals("en", result.getData().get(0).getLanguages().get(0));
+        assertEquals(1, result.getTotal());
+        assertEquals(1, result.getSize());
+        assertEquals(0, result.getPage());
     }
 
     @Test

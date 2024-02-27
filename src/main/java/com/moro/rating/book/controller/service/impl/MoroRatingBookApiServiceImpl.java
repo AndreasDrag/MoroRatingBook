@@ -10,6 +10,8 @@ import com.moro.rating.book.controller.transformer.BookRatingPerMonthTransformer
 import com.moro.rating.book.controller.transformer.BookReviewDtoTransformer;
 import com.moro.rating.book.controller.transformer.BookTransformer;
 import com.moro.rating.book.service.api.MoroRatingBookService;
+import com.moro.rating.book.service.model.Book;
+import com.moro.rating.book.service.model.PagedResult;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -26,8 +28,19 @@ public class MoroRatingBookApiServiceImpl implements MoroRatingBookApiService {
     }
 
     @Override
-    public List<BookDto> searchBook(String title) {
-        return Optional.ofNullable(moroRatingBookService.searchBook(title))
+    public PagedResult<List<BookDto>> searchBook(String title, int page) {
+        return Optional.ofNullable(moroRatingBookService.searchBook(title, page))
+                .map(result -> new PagedResult.Builder<List<BookDto>>()
+                        .withData(getData(result.getData()))
+                        .withTotal(result.getTotal())
+                        .withSize(result.getSize())
+                        .withPage(result.getPage())
+                        .build())
+                .orElse(null);
+    }
+
+    private static List<BookDto> getData(List<Book> result) {
+        return Optional.ofNullable(result)
                 .stream().flatMap(Collection::stream)
                 .map(BookTransformer::toDto)
                 .toList();

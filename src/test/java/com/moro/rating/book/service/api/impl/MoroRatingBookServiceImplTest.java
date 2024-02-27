@@ -9,6 +9,7 @@ import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
 import com.moro.rating.book.service.model.BookRatingPerMonth;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.PagedResult;
 import com.moro.rating.book.service.model.RatingPerMonth;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -53,13 +54,22 @@ class MoroRatingBookServiceImplTest {
                 .withAuthors(List.of(author))
                 .build();
 
-        when(bookClientService.searchBooks(anyString())).thenReturn(List.of(book));
+        when(bookClientService.searchBooks(anyString(), anyInt())).thenReturn(
+                new PagedResult.Builder<List<Book>>()
+                        .withData(List.of(book))
+                        .withPage(0)
+                        .withTotal(1)
+                        .withSize(1)
+                        .build());
 
-        List<Book> books = moroRatingBookService.searchBook("Frankenstein");
+        PagedResult<List<Book>> result = moroRatingBookService.searchBook("Frankenstein", 0);
 
-        verify(bookClientService, times(1)).searchBooks("Frankenstein");
-        assertEquals(1, books.size());
-        assertEquals(book, books.get(0));
+        verify(bookClientService, times(1)).searchBooks("Frankenstein", 0);
+        assertEquals(1, result.getData().size());
+        assertEquals(book, result.getData().get(0));
+        assertEquals(1, result.getTotal());
+        assertEquals(1, result.getSize());
+        assertEquals(0, result.getPage());
     }
 
     @Test

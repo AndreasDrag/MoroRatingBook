@@ -8,6 +8,7 @@ import com.moro.rating.book.service.model.Book;
 import com.moro.rating.book.service.model.BookDetails;
 import com.moro.rating.book.service.model.BookRatingPerMonth;
 import com.moro.rating.book.service.model.BookReview;
+import com.moro.rating.book.service.model.PagedResult;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Configuration;
@@ -31,10 +32,10 @@ public class MoroRatingBookServiceImpl implements MoroRatingBookService {
         this.bookReviewRepositoryService = bookReviewRepositoryService;
     }
 
-    @Cacheable(cacheNames = SEARCH_BOOK_CACHE_NAME, key = "#title")
+    @Cacheable(cacheNames = SEARCH_BOOK_CACHE_NAME, key = "#title + #page")
     @Override
-    public List<Book> searchBook(String title) {
-        return bookClientService.searchBooks(title);
+    public PagedResult<List<Book>> searchBook(String title, int page) {
+        return bookClientService.searchBooks(title, page);
     }
 
     @CacheEvict(value = GER_BOOK_CACHE_NAME, key = "#bookReview.bookId")
